@@ -1,6 +1,5 @@
-import APIs.marketAssets;
-import APIs.viewOne;
-import APIs.login;
+import APIs.ViewOne;
+import APIs.Login;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 
@@ -9,18 +8,14 @@ public class viewOneTest {
     @Test
     public static void viewOneHappyScenario(){
 
-        viewOne vwOne = new viewOne();
-        login loginApi = new login();
+        ViewOne vwOne = new ViewOne();
+        Login loginApi = new Login();
 
         Response res_login = loginApi.login("+966538772716", "1111");
-        res_login.body().prettyPrint();
         String token = res_login.jsonPath().get("data.access_token");
 
-        Response response = vwOne.vewOne(token);
-
-        System.out.println(response.body().prettyPrint());
-        System.out.println();
-
+        Response response = vwOne.viewOne(token);
+        response.body().prettyPrint();
         response.then().statusCode(200);
 }
 }
